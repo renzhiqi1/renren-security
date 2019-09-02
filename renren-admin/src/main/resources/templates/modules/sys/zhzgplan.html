@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+		<#include "/header.html">
+</head>
+<body>
+<div id="rrapp" v-cloak>
+    <div v-show="showList">
+        <div class="grid-btn">
+			<#if shiro.hasPermission("sys:zhzgplan:save")>
+            <a class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;新增</a>
+			</#if>
+			<#if shiro.hasPermission("sys:zhzgplan:update")>
+            <a class="btn btn-primary" @click="update"><i class="fa fa-pencil-square-o"></i>&nbsp;修改</a>
+			</#if>
+			<#if shiro.hasPermission("sys:zhzgplan:delete")>
+            <a class="btn btn-primary" @click="del"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
+			</#if>
+        </div>
+        <table id="jqGrid"></table>
+        <div id="jqGridPager"></div>
+    </div>
+
+    <div v-show="!showList" class="panel panel-default">
+        <div class="panel-heading">{{title}}</div>
+        <form class="form-horizontal">
+            <div class="form-group">
+                <div class="col-sm-2 control-label">父计划ID，一级计划为0</div>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" v-model="zhzgPlan.parentId" placeholder="父计划ID，一级计划为0"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+
+                <div class="col-sm-2 control-label">标题</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="zhzgPlan.title" placeholder="标题"/>
+                        </div>
+
+            </div>
+
+            <div class="form-group">
+
+                <div class="col-sm-2 control-label">发布人</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="zhzgPlan.publisher" placeholder="发布人"/>
+                        </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-2 control-label">内容</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="zhzgPlan.content" placeholder="内容"/>
+                        </div>
+            </div>
+
+            <div class="form-group">
+
+                <div class="col-sm-2 control-label">状态（启动、执行、暂定、结束、删除）</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="zhzgPlan.state" placeholder="状态（启动、执行、暂定、结束、删除）"/>
+                        </div>
+
+            </div>
+
+            <div class="form-group">
+
+                <div class="col-sm-2 control-label">进度</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="zhzgPlan.schedules" placeholder="进度"/>
+                        </div>
+
+            </div>
+
+            <div class="form-group">
+
+                <div class="col-sm-2 control-label">发布时间</div>
+                        <div class="col-sm-10">
+                            <input type="date" data-click-to-select="" id="">
+                            <input type="text" class="form-control" v-model="zhzgPlan.time" placeholder="发布时间"/>
+                        </div>
+
+            </div>
+
+            <div class="form-group">
+
+                <div class="col-sm-2 control-label">审核标识（0 ：待审核 1:审核通过 2：审核不通过）</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="zhzgPlan.auditFlag" placeholder="审核标识（0 ：待审核 1:审核通过 2：审核不通过）"/>
+                        </div>
+
+            </div>
+
+            <div class="form-group">
+
+                <div class="col-sm-2 control-label">删除标识（0 禁用 1正常）</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="zhzgPlan.deleFlag" placeholder="删除标识（0 禁用 1正常）"/>
+                        </div>
+
+            </div>
+
+            <div class="form-group">
+
+                <div class="col-sm-2 control-label">备注信息</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="zhzgPlan.comment" placeholder="备注信息"/>
+                        </div>
+
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-2 control-label"></div>
+                <input type="button" class="btn btn-primary" id="btnSaveOrUpdate" data-loading-text="保存中..." @click="saveOrUpdate" value="确定"/>
+                &nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="返回"/>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="${request.contextPath}/statics/js/modules/sys/zhzgplan.js?_${.now?long}"></script>
+</body>
+</html>
